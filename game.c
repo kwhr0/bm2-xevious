@@ -38,7 +38,7 @@ u8 isDemo(void) {
 }
 
 void scorePrint(void) {
-	chrTime(2);
+	chrTime(1);
 	chrLocate(8, 0);
 	chrPuts("1UP");
 	chrLocate(18, 0);
@@ -56,7 +56,7 @@ void scorePrint(void) {
 void scoreUpdate(void) {
 	static u8 timer;
 	if (!demo && !(++timer & 7)) {
-		chrTime(2);
+		chrTime(1);
 		chrLocate(8, 0);
 		chrPuts(timer & 8 ? "1UP" : "   ");
 	}
@@ -166,7 +166,9 @@ void gameInit(void) {
 	if (!isDemo()) for (u8 i = 0; i < RESERVE; i++) reserveInc();
 #endif
 	cls();
+	chrInit();
 	scorePrint();
+	chrUpdate();
 	bgInit();
 	emitterInit();
 }

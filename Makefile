@@ -6,7 +6,7 @@ LDFLAGS = -b -C0x$(START) -m a.map
 LIBS = /opt/chibicc/lib/libc.a
 
 OBJS = crt0.o main.o base.o mathi.o game.o \
-	emitter.o es.o sp.o sprite.o pattern.o bg.o
+	emitter.o es.o sp.o sprite.o pattern.o bg.o chr.o
 
 all: pattern.h $(OBJS)
 	$(LD) $(LDFLAGS) -o a.out $(OBJS) $(LIBS)
