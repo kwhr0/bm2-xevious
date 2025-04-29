@@ -3,7 +3,6 @@
 #include "pattern.h"
 
 #define SPRITE_CN		48
-#define SPRITE_C		0xf000	// fixed address
 
 typedef struct {
 	Sprite s;
@@ -11,6 +10,7 @@ typedef struct {
 	u8 *ptr;
 } SpriteC;
 
+static SpriteC spriteC[SPRITE_CN];
 static SpriteContext ctx_c;
 static u8 chrX, chrY;
 static s8 time;
@@ -84,7 +84,7 @@ void chrPutsBuf(u8 *str) {
 
 static void chrInitSub(void) {
 	spriteContext(&ctx_c);
-	spriteSetup((Sprite *)SPRITE_C, SPRITE_CN, sizeof(SpriteC));
+	spriteSetupArray(spriteC);
 	spriteContext(nil);
 }
 
