@@ -168,7 +168,6 @@ void gameInit(void) {
 	cls();
 	chrInit();
 	scorePrint();
-	chrUpdate();
 	bgInit();
 	emitterInit();
 }

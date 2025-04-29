@@ -22,8 +22,11 @@ void chrTime(u8 t) {
 void chrValue(u8 *buf, u8 n, u16 v) {
 	u8 *p = buf + n;
 	*--p = 0;
-	do *--p = v % 10 + '0';
-	while (v /= 10);
+	do {
+		u16 d = v / 10;
+		*--p = v - d * 10 + '0';
+		v = d;
+	} while (v);
 	while (p > buf) *--p = ' ';
 }
 
