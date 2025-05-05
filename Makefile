@@ -10,7 +10,7 @@ OBJS = crt0.o main.o base.o mathi.o game.o \
 
 all: pattern.h $(OBJS)
 	$(LD) $(LDFLAGS) -o a.out $(OBJS) $(LIBS)
-	dd if=a.out of=a.bin bs=0x$(START) skip=1 >/dev/null 2>&1
+	dd if=a.out of=a.bin bs=`echo "ibase=16;$(START)"|bc` skip=1 >/dev/null 2>&1
 	f9dasm -6800 -offset $(START) a.bin > a.lst
 	./mkadr.pl > a.adr
 	./total.sh
