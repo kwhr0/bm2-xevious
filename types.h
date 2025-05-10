@@ -1,11 +1,6 @@
 #ifndef _TYPES_H_
 #define _TYPES_H_
 
-#define sleep()	asm(".byte 0x1a")
-#define wait()	asm("wai")
-#define ei()	asm("cli")
-#define di()	asm("sei")
-
 #ifndef nil
 #define nil	0
 #endif

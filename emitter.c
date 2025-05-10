@@ -38,9 +38,10 @@ void emitterInit(void) {
 }
 
 void emitterStart(void) {
+	Emitter *p;
 	for (esp = es; esp->ofs != 0x7fff && bgOfs() >= esp->ofs; esp++)
 		;
-	for (Emitter *p = emitter; p < emitter + EMITTER_N; p++) p->timer = 0;
+	for (p = emitter; p < emitter + EMITTER_N; p++) p->timer = 0;
 	groupN = 0;
 }
 

@@ -19,22 +19,14 @@
 #endif
 
 static Sprite spriteR[SPRITE_RN];
-static u8 demo, playf, trigger;
+static u8 playf, trigger;
 static u16 score, scoreNext = 2000, hiscore = 4000;
 static u8 scoreBuf[6], hiscoreBuf[6];
-static SpriteContext ctx_r, ctx_logo;
+static SpriteContext ctx_r;
 static s8 reserve;
 
 u16 scoreGet(void) {
 	return score;
-}
-
-void demoSet(u8 f) {
-	demo = f;
-}
-
-u8 isDemo(void) {
-	return demo;
 }
 
 void scorePrint(void) {
@@ -55,7 +47,7 @@ void scorePrint(void) {
 
 void scoreUpdate(void) {
 	static u8 timer;
-	if (!demo && !(++timer & 7)) {
+	if (!(++timer & 7)) {
 		chrTime(1);
 		chrLocate(8, 0);
 		chrPuts(timer & 8 ? "1UP" : "   ");
@@ -63,8 +55,9 @@ void scoreUpdate(void) {
 }
 
 static void reserveSet(Pattern *pat) {
+	Sprite *p;
 	spriteContext(&ctx_r);
-	Sprite *p = spriteCreate(0, pat);
+	p = spriteCreate(0, pat);
 	if (p) {
 		p->x = 2 << PS;
 		p->y = 2 + (6 * reserve) << PS;
@@ -81,12 +74,11 @@ void reserveInc(void) {
 
 u8 reserveDec(void) {
 	reserve--;
-	reserveSet(pat_solvalou_r_off);
+	reserveSet(pat_solvalou_ro);
 	return reserve < 0;
 }
 
 void scoreAdd(u16 v) {
-	if (demo) return;
 	score += v;
 	chrValue(scoreBuf, sizeof(scoreBuf), score);
 	if (hiscore < score) hiscore = score;
@@ -105,65 +97,38 @@ u8 triggerGet(void) {
 	return r;
 }
 
-void logoInit(void) {
-	static Sprite sprite;
-	spriteContext(&ctx_logo);
-	spriteSetup(&sprite, 1, 0);
-	Sprite *p = spriteCreate(0, pat_logo);
-	if (p) {
-		p->x = 90 << PS;
-		p->y = 14 << PS;
-	}
-	spriteContext(nil);
-}
-
-void logoUpdate(void) {
-	spriteContext(&ctx_logo);
-	spriteUpdate();
-	spriteContext(nil);
-}
-
 static void gameStart(void) {
-	if (isDemo()) logoInit();
-	else {
-		chrTime(60);
-		chrLocate(10, 18);
-		chrPuts("READY!");
-		u8 buf[3];
-		chrValue(buf, sizeof(buf), reserve);
-		chrLocate(0, 22);
-		chrPuts(buf);
-		chrPuts(" SOLVALOU LEFT");
-	}
+	u8 buf[3];
+	chrTime(60);
+	chrLocate(10, 18);
+	chrPuts("READY!");
+	chrValue(buf, sizeof(buf), reserve);
+	chrLocate(0, 22);
+	chrPuts(buf);
+	chrPuts(" SOLVALOU LEFT");
 	playStart(6, MUSIC_START, 0);
 	playf = 0;
 }
 
 static u8 gameUpdate(void) {
-	spriteContext(&ctx_r);
-	spriteUpdate();
-	spriteContext(nil);
 	u8 f = playing(6) == MUSIC_START;
 	if (playf && !f) playStart(0, MUSIC_FLY, PF_LOOP);
 	playf = f;
-	if (isDemo()) {
-		logoUpdate();
-		if (KEY & KEY_A) {
-			demoSet(0);
-			return 0;
-		}
-	}
+	spriteContext(&ctx_r);
+	spriteUpdate();
+	spriteContext(nil);
 	return 1;
 }
 
 void gameInit(void) {
+	u8 i;
 	reserve = 0;
 	spriteContext(&ctx_r);
 	spriteSetupArray(spriteR);
 	spriteView(154, 6);
 	spriteContext(nil);
 #if RESERVE
-	if (!isDemo()) for (u8 i = 0; i < RESERVE; i++) reserveInc();
+	for (i = 0; i < RESERVE; i++) reserveInc();
 #endif
 	cls();
 	chrInit();
@@ -173,13 +138,15 @@ void gameInit(void) {
 }
 
 void gameMain(void) {
+	u8 r;
 	spInit();
 	gameStart();
 	bgStart();
 	emitterStart(); // must be after bgStart()
-	u8 r;
 	do {
-		clrs(); // for no BG
+#ifndef BG_ENABLE
+		clrs();
+#endif
 		setkey();
 		if (bgUpdate()) emitterStart();
 		emitterUpdate();

@@ -26,9 +26,12 @@ u8 atni(s16 dx, s16 dy) {
 	static const u8 c[] = {
 		0x00, 0x40, 0x00, 0xc0, 0x80, 0x40, 0x80, 0xc0
 	};
+	u16 ax, ay;
+	s8 v;
 	if (!dx && !dy) return 0;
-	u16 ax = dx >= 0 ? dx : -dx, ay = dy >= 0 ? dy : -dy;
-	s8 v = ax < ay ? t[((ax << 4) + 8) / ay] : t[((ay << 4) + 8) / ax];
+	ax = dx >= 0 ? dx : -dx;
+	ay = dy >= 0 ? dy : -dy;
+	v = ax < ay ? t[((ax << 4) + 8) / ay] : t[((ay << 4) + 8) / ax];
 	if (dx < 0 ^ dy < 0 ^ ax < ay) v = -v;
 	return c[(dx < 0) << 2 | (dy < 0) << 1 | ax < ay] + v;
 }

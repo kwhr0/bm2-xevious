@@ -9,7 +9,7 @@
 
 typedef struct {
 	u8 n, w, pw, ph;
-	u16 ofs[0];
+	u16 ofs[1];
 } Pattern;
 
 typedef struct Sprite {

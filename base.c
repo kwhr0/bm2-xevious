@@ -12,9 +12,11 @@ void printf(const u8 *format, ...) {
 	u8 *p = (u8 *)format;
 #ifdef __chibicc__
 	ap += 2;
-#define next_ap	(++ap)
-#else
+#endif
+#ifdef STDARG_REV
 #define next_ap	(--ap)
+#else
+#define next_ap	(++ap)
 #endif
 	while (*p) {
 		u8 c[7];

@@ -37,9 +37,10 @@ void chrLocate(u8 x, u8 y) {
 
 static u8 behaviorChr(Sprite *p) {
 	SpriteC *s = (SpriteC *)p;
+	u8 c;
 	if (!s->ptr) return s->timer < 0 || s->timer--;
 	p->flags = s->timer ? 0 : SF_HIDDEN;
-	u8 c = *s->ptr;
+	c = *s->ptr;
 	if (c) {
 		s16 f = c - ' ' << AS;
 		if (p->frame != f) {
@@ -52,8 +53,9 @@ static u8 behaviorChr(Sprite *p) {
 }
 
 Sprite *chrPut(u8 c) {
+	SpriteC *s;
 	spriteContext(&ctx_c);
-	SpriteC *s = (SpriteC *)spriteCreate(0, pat_chr);
+	s = (SpriteC *)spriteCreate(0, pat_chr);
 	if (s) {
 		s->s.behavior = behaviorChr;
 		s->s.x = chrX << PS;

@@ -25,7 +25,7 @@
 2	e	0	3	0	e	7	3	7	lock
 2	a	0	4	0	a	7	4	7	solvalou
 1	10	0	3	0	10	4	3	3	solvalou_r
-1	11	0	3	0	11	4	3	3	solvalou_r_off
+1	11	0	3	0	11	4	3	3	solvalou_ro
 3	0	0	6	0	0	6	6	6	toroid
 3	3	0	6	0	3	6	6	6	jara
 2	0	0	7	0	0	3	7	3	giddo
@@ -49,12 +49,12 @@
 2	5	0	a	0	5	7	a	7	domogram
 3	9	0	b	0	9	7	b	7	grobda
 2	7	0	a	0	7	7	a	7	derota
-2	7	0	b	0	7	6	b	6	garuderota_t
+2	7	0	b	0	7	6	b	6	garudero_t
 2	9	0	a	0	9	6	a	6	zolbak
 2	b	0	7	0	c	6	8	6	garubarra
 2	b	0	9	0	c	6	a	6	garuderota
 40	0	0	e	0	0	4	e	7	chr
 3	3	0	b	0	3	7	b	7	crash
-1	c	0	b	0	14	7	d	3	logo
+#1	c	0	b	0	14	7	d	3	logo
 2	f	0	6	0	f	4	6	4	tss
 4	f	0	7	0	f	4	7	4	tsr
