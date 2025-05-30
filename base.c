@@ -10,7 +10,7 @@ void cls(void) {
 void printf(const u8 *format, ...) {
 	u16 *ap = (u16 *)&format;
 	u8 *p = (u8 *)format;
-#ifdef __chibicc__
+#ifdef __CHIBICC__
 	ap += 2;
 #endif
 #ifdef STDARG_REV

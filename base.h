@@ -5,7 +5,7 @@
 #define XN				32
 #define YN				192
 
-#ifdef __chibicc__
+#ifdef __CHIBICC__
 #define sleep()	asm(".byte 0x1a")
 #define wait()	asm("wai")
 #define ei()	asm("cli")
