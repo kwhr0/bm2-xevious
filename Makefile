@@ -1,5 +1,5 @@
-#CC = chibicc
-CC = fcc
+CC = chibicc
+#CC = fcc
 MPU = 6800
 #MPU = 6303
 
@@ -9,7 +9,8 @@ LD = ld6800
 LDFLAGS = -b -C0x$(START) -m a.map
 
 ifeq ($(CC),chibicc)
-OBJS = crt0.o
+CFLAGS = -Os -DBG_ENABLE
+OBJS = crt0.o bgdata.o
 LIBS = /opt/chibicc/lib/libc.a
 else
 CFLAGS = -m$(MPU) -DBG_ENABLE
