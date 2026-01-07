@@ -6,7 +6,7 @@ MPU = 6800
 START = 2100
 AS = as6800
 LD = ld6800
-LDFLAGS = -b -C0x$(START) -m a.map
+LDFLAGS = -b -Z0xd4 -C0x$(START) -m a.map
 
 ifeq ($(CC),chibicc)
 CFLAGS = -Os -DBG_ENABLE

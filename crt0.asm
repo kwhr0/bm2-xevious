@@ -15,6 +15,7 @@ long:	.word	0
 
 	.code
 	.export _exit
+	.export _abort
 start:
 	sei
 	lds	#$ffef	; extended
@@ -37,6 +38,7 @@ clear_bss:
 nobss:
 	jsr	_main
 _exit:
+_abort:
 	wai
 	bra	_exit
 
