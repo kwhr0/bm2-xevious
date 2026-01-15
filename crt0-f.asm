@@ -8,6 +8,8 @@ start:
 	ldx	#1
 	stx	@one
 	;
+	ldab	#$07
+	stab	$efd0   ; all ram
 	lds	#$ffef	; extended
 	ldx	#interrupt
 	stx	$fff8
