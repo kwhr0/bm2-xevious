@@ -18,6 +18,8 @@ long:	.word	0
 	.export _abort
 start:
 	sei
+	ldab	#$07
+	stab	$efd0	; all ram
 	lds	#$ffef	; extended
 	ldx	#interrupt
 	stx	$fff8
